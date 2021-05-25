@@ -1,0 +1,33 @@
+{
+  "scriptFile": "__init__.py",
+  "bindings": [
+    {
+      "name": "tableMessage",
+      "type": "table",
+      "tableName": "AcmeTranslations",
+      "partitionKey": "subtitles",
+      "direction": "out"
+    },
+    {
+      "authLevel": "Anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get",
+        "post"
+      ]
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "$return"
+    },
+    {
+      "type": "queue",
+      "direction": "out",
+      "name": "queueMessage",
+      "queueName": "acmesub-translations-queue"
+    }
+  ]
+}

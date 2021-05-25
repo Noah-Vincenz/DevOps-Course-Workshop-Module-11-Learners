@@ -1,0 +1,26 @@
+{
+  "scriptFile": "__init__.py",
+  "bindings": [
+    {
+      "name": "msg",
+      "type": "queueTrigger",
+      "direction": "in",
+      "queueName": "acmesub-translations-queue"
+    },
+    {
+      "name": "tableInMessage",
+      "type": "table",
+      "tableName": "AcmeTranslations",
+      "partitionKey": "subtitles",
+      "rowKey": "{rowKey}",
+      "direction": "in"
+    },
+    {
+      "name": "tableOutMessage",
+      "type": "table",
+      "tableName": "AcmeTranslations2",
+      "partitionKey": "subtitles",
+      "direction": "out"
+    }
+  ]
+}
