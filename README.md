@@ -20,3 +20,25 @@ Also, make sure you have installed the following:
 * [Python](https://www.python.org/downloads/)
   * Version 3.6 or up; check this by running `python --version`
 * [Postman](https://www.postman.com/downloads/)
+
+## My Notes
+
+This project runs two hosted functions (FaaS) in the Azure Cloud platform. There is an endpoint listening to requests containing the following body:
+```
+{
+    "subtitle": "It was a bright cold day in April, and the clocks were striking thirteen.",
+    "languages": ["it", "de"]
+}
+```
+The first function (located in HttpEndpoint) stores the input in the 'AcmeTranslations' table in the Azure cloud and sends a message to the 'acmesub-translations-queue' for each language element in the input list. The second function (located in TranslatorEndpoint) then processes each message by querying the corresponding entry in the 'AcmeTranslations' table, translating the input/subtitle in that table entry, and creating a new table entry with the translated output in the 'AcmeTranslations2' table in the Azure cloud.
+
+To fetch changes from the remote cloud run the following:
+```
+func azure functionapp fetch-app-settings <APP_NAME>
+```
+
+To run a function locally run the following:
+```
+func start
+```
+inside the 'AcmeSubProject' directory.
