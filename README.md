@@ -21,16 +21,19 @@ Also, make sure you have installed the following:
   * Version 3.6 or up; check this by running `python --version`
 * [Postman](https://www.postman.com/downloads/)
 
-## My Notes
 
-This project runs two hosted functions (FaaS) in the Azure Cloud platform. There is an endpoint listening to requests containing the following body:
+### My Notes
+
+This project runs two hosted functions (FaaS) in the Azure Cloud platform. There is an endpoint listening to POST requests to 'http://localhost:7071/api/HttpEndpoint' containing the following body:
 ```
 {
     "subtitle": "It was a bright cold day in April, and the clocks were striking thirteen.",
     "languages": ["it", "de"]
 }
 ```
-The first function (located in HttpEndpoint) stores the input in the 'AcmeTranslations' table in the Azure cloud and sends a message to the 'acmesub-translations-queue' for each language element in the input list. The second function (located in TranslatorEndpoint) then processes each message by querying the corresponding entry in the 'AcmeTranslations' table, translating the input/subtitle in that table entry, and creating a new table entry with the translated output in the 'AcmeTranslations2' table in the Azure cloud.
+Once the function is deployed/hosted in the Azure cloud this can be accessed via 'https://<APP_NAME>.azurewebsites.net/api/httpendpoint'.
+
+The first function (located in HttpEndpoint) stores the input in the 'AcmeTranslations' table in the Azure cloud and sends a message to the 'acmesub-translations-queue' for each language element in the input list. The second function (located in TranslatorEndpoint) then processes each message by querying the corresponding entry in the 'AcmeTranslations' table, translating the input/subtitle in that table entry to the target language (ie. 'de'), and creating a new table entry with the translated output in the 'AcmeTranslations2' table in the Azure cloud. Currently the translation funciton only converts the text to uppercase letters, but optional functionality to include Azure Translator has been included.
 
 To fetch changes from the remote cloud run the following:
 ```
